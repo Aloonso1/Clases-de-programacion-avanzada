@@ -8,7 +8,7 @@
 
 int variable=0;
 
-void main()
+int main()
 {
 //	Variables
 //  Programa
