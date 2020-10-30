@@ -1,0 +1,134 @@
+//
+// Created by alonso on 25/10/20.
+//
+
+#include <stdio.h>
+
+//#include <stdlib.h>
+
+#include <ctype.h>
+
+#include <string.h>
+
+int main() {
+  int op;
+
+  while (op != 10) {
+    printf("\n");
+    printf("\n");
+    printf("Proyecto \n");
+    printf("1.- Encriptador \n");
+    printf("2.- Desencriptador \n");
+    printf("3.- Recuperar texto original \n");
+    printf("10.- Salir\n");
+    printf("Indica la opcion: ");
+    scanf("%d", & op);
+    int n, i, ch;
+    char texto[300];
+    char supertexto[300];
+    char tipo[16];
+    
+    while ((ch = getchar()) != '\n' && ch != EOF);
+    switch (op) {
+    case 1: {
+
+      printf("Encriptar:\n");
+      strcpy(tipo, "\n  Encriptar  ");
+      strcat(supertexto, tipo);
+      gets(texto);
+        for (int indice = 0; texto[indice] != '\0'; ++indice){
+            texto[indice] = tolower(texto[indice]);
+        }
+      strcat(supertexto, texto);
+      int desp = 3, tam, aux;
+      tam = strlen(texto);
+      printf("Escribe lo que se va a recorrer:\n");
+      scanf("%d", & desp);
+
+      for (int i = 0; i < tam; i++) {
+        //obtenemos el valor de la letra en aux
+        aux = texto[i];
+        /*comparamos a ver si la suma del valor ascci mas 
+        el desplazamiento es mayor que el valor de z*/
+        if (aux + desp > 122) {
+          /*si es le restamos el valor z y la 
+          diferencia la sumamos al principio 
+          del abecedario y almacenamos el nuevo valor*/
+          aux = ((aux + desp) - 122) + 96;
+        } else {
+          /*si no solo sumamos el desplazamiento
+           y almacenamos el nuevo valor*/
+          aux = aux + desp;
+        }
+        /* condición para no hacer nada si el carácter es un ESPACIO*/
+        if (texto[i] != ' ') {
+          //codificamos la letra 
+          texto[i] = aux;
+        }
+      }
+        strcpy(tipo, " = ");
+        strcat(supertexto, tipo);
+	  strcat(supertexto, texto);
+	  
+      printf("\n");
+      printf("Texto encriptado: %s\n", texto);
+      break;
+    }
+    case 2: {
+
+      printf("Desencriptar:\n");
+      strcpy(tipo, "\n  Desencriptar  ");
+      strcat(supertexto, tipo);
+      gets(texto);
+        for (int indice = 0; texto[indice] != '\0'; ++indice){
+            texto[indice] = tolower(texto[indice]);
+        }
+      strcat(supertexto, texto);
+      int desp = 3, tam, aux;
+      tam = strlen(texto);
+      printf("Escribe lo que se va a recorrer:\n");
+      scanf("%d", & desp);
+
+      for (int i = 0; i < tam; i++) {
+        //obtenemos el valor de la letra en aux
+        aux = texto[i];
+        //comparamos a ver si la resta del valor ascci es menor que a
+        if (aux - desp < 97) {
+          /*si es calculamos el valor de la letra codificada retando la diferencia a z*/
+          aux = 122 - (96 - (aux - desp));
+        } else {
+          /*si no solo restamos el desplazamiento
+           y almacenamos el nuevo valor*/
+          aux = aux - desp;
+        }
+        /* condición para no hacer nada si el carácter es un ESPACIO*/
+        if (texto[i] != ' ') {
+          //codificamos la letra 
+          texto[i] = aux;
+        }
+      }
+        strcpy(tipo, " = ");
+        strcat(supertexto, tipo);
+      strcat(supertexto, texto);
+      printf("\n");
+      printf("Texto original: %s\n", texto);
+      break;
+    }
+    case 3: {
+      printf("Sin cambios:\n");
+      strcpy(tipo, "\n  Sin cambios  ");
+      strcat(supertexto, tipo);
+      gets(texto);
+      strcat(supertexto, texto);
+      printf("Texto original: %s\n", texto);
+        strcpy(tipo, " = ");
+        strcat(supertexto, tipo);
+      strcat(supertexto, texto);
+      break;
+    }
+    case 10:
+      printf("%s", supertexto);
+      break;
+    }
+  }
+}
