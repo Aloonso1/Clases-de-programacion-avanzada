@@ -1,0 +1,464 @@
+//
+// Created by alonso on 14/10/20.
+//
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include<string.h>
+
+#define tamfil 3
+#define tamcol 3
+
+//#include <conio.h>
+
+int variable = 0;
+
+int main() {
+
+    int op;
+
+    while (op != 10) {
+      printf("\n");
+      printf("1.- Obtener la cantidad de vocales que existe en una palabra. \n");
+      printf("2.- Crear un programa que dibuje un triangulo equilatero \n");
+      printf("3.- Crear una matriz identidad \n");
+      printf("4.- Crear una matriz inversa\n");
+      printf("5.- Crear un programa que sume, reste y multiplique 2 matrices.a cada resultado aplicar la transpuesta \n");
+      printf("6.- Crear un programa que cambie un texto de mayúsculas a minúsculas \n");
+      printf("10.- Salir\n");
+      printf("Indica la opcion: ");
+      scanf("%d", & op);
+      int n, i, ch;
+
+      while ((ch = getchar()) != '\n' && ch != EOF);
+      switch (op) {
+      case 1: {
+        int suma = 0;
+       
+          char palabra[55];
+          int vocala = 0, vocale = 0, vocali = 0, vocalo = 0, vocalu = 0;
+          printf("Obtener la cantidad de vocales que existe en una palabra\n");
+          printf("Escribe una palabra: ");
+          scanf("%s", & palabra);
+
+          for (int i = 0; i < 55; i++) {
+            switch (palabra[i]) {
+            case 'a':
+              vocala++;
+              break;
+            case 'e':
+              vocale++;
+              break;
+            case 'i':
+              vocali++;
+              break;
+            case 'o':
+              vocalo++;
+              break;
+            case 'u':
+              vocalu++;
+              break;
+            case 'A':
+              vocala++;
+              break;
+            case 'E':
+              vocale++;
+              break;
+            case 'I':
+              vocali++;
+              break;
+            case 'O':
+              vocalo++;
+              break;
+            case 'U':
+              vocalu++;
+              break;
+            }
+          }
+          suma = vocala + vocale + vocali + vocalo + vocalu-1;
+          printf("Tiene %d vocales", suma);
+          break;
+        }
+
+        case 2: {
+          printf(" EJERCICIO 2\n");
+
+          printf("Ingrese el lado del triangulo equilatero\n");
+          int fil = 0,
+          col = 0;
+          scanf("%d", & fil);
+          col = 2 * fil;
+          int x = 0;
+          char tam[fil][col];
+          if (fil % 2 == 0) {
+            for (int i = 1; i <= fil; i++) {
+              for (int j = 1; j <= col; j++) {
+                if (j <= fil) {
+                  x = (i + j);
+                } else {
+                  x = (j - i);
+                }
+                if (x > fil && j <= fil && x % 2 != 0) {
+                  tam[i][j] = '*';
+                } else if (x < fil && j >= fil && x % 2 != 0) {
+                  tam[i][j] = '*';
+                } else {
+                  tam[i][j] = ' ';
+                }
+              }
+            }
+          }
+          if (fil % 2 != 0) {
+            for (int i = 1; i <= fil; i++) {
+              for (int j = 1; j <= col; j++) {
+                if (j <= fil) {
+                  x = (i + j);
+                } else {
+                  x = (j - i);
+                }
+                if (x > fil && j <= fil && x % 2 == 0) {
+                  tam[i][j] = '*';
+                } else if (x < fil && j >= fil && x % 2 == 0) {
+                  tam[i][j] = '*';
+                } else {
+                  tam[i][j] = ' ';
+                }
+              }
+            }
+          }
+          printf("\n");
+          for (int i = 1; i <= fil; i++) {
+            for (int j = 1; j <= col; j++) {
+              if (j == col) {
+                printf("%\n");
+              } else {
+                printf("%c", tam[i][j]);
+              }
+            }
+          }
+          break;
+        }
+        case 3: {
+          printf("Ingrese el tamaño de la matriz identidad\n");
+          int x;
+          scanf("%d", & x);
+          int mat_id[x][x];
+          for (int i = 0; i < x; i++) {
+            for (int j = 0; j < x; j++) {
+              if (i == j) {
+                mat_id[i][j] = 1;
+              } else {
+                mat_id[i][j] = 0;
+              }
+            }
+          }
+          for (int i = 0; i < x; i++) {
+            for (int j = 0; j < x; j++) {
+              if (j == x - 1) {
+                printf("\t%i\n", mat_id[i][j]);
+              } else {
+                printf("\t%i", mat_id[i][j]);
+              }
+            }
+          }
+          
+          break;
+        }
+
+        case 4: {
+          int adjuntaa,
+          determinante = 0;
+          int matriz[tamfil][tamcol];
+          float adjunta[tamfil][tamcol],
+          inversa[tamfil][tamcol];
+          printf("Matriz 3x3\n");
+          for (int fil = 0; fil < tamfil; fil++) {
+
+            for (int col = 0; col < tamcol; col++) {
+              printf("A [%d][%d]: ", fil, col);
+              scanf("%d", & matriz[fil][col]);
+            }
+          }
+          determinante = matriz[0][0] * (matriz[1][1] * matriz[2][2] - matriz[2][1] * matriz[1][2]) +
+          matriz[1][0] * (matriz[2][1] * matriz[0][2] - matriz[0][1] * matriz[2][2]) +
+          matriz[2][0] * (matriz[0][1] * matriz[1][2] - matriz[1][1] * matriz[0][2]);
+          if (determinante != 0) {
+            for (int fil = 0; fil < tamfil; fil++) {
+              for (int col = 0; col < tamcol; col++) {
+                if (col == 0 && fil == 0) {
+                  adjunta[fil][col] = (matriz[1][1] * matriz[2][2]) - (matriz[2][1] * matriz[1][2]);
+                }
+                if (col == 0 && fil == 1) {
+                  adjunta[fil][col] = (matriz[2][0] * matriz[1][2]) - (matriz[1][0] * matriz[2][2]);
+                }
+                if (col == 0 && fil == 2) {
+                  adjunta[fil][col] = (matriz[1][0] * matriz[2][1]) - (matriz[2][0] * matriz[1][1]);
+                }
+                if (col == 1 && fil == 0) {
+                  adjunta[fil][col] = (matriz[2][1] * matriz[0][2]) - (matriz[0][1] * matriz[2][2]);
+                }
+                if (col == 1 && fil == 1) {
+                  adjunta[fil][col] = (matriz[0][0] * matriz[2][2]) - (matriz[2][0] * matriz[0][2]);
+                }
+                if (col == 1 && fil == 2) {
+                  adjunta[fil][col] = (matriz[2][0] * matriz[0][1]) - (matriz[0][0] * matriz[2][1]);
+                }
+                if (col == 2 && fil == 0) {
+                  adjunta[fil][col] = (matriz[0][1] * matriz[1][2]) - (matriz[1][1] * matriz[0][2]);
+                }
+                if (col == 2 && fil == 1) {
+                  adjunta[fil][col] = (matriz[1][0] * matriz[0][2]) - (matriz[0][0] * matriz[1][2]);
+                }
+                if (col == 2 && fil == 2) {
+                  adjunta[fil][col] = (matriz[0][0] * matriz[1][1]) - (matriz[1][0] * matriz[0][1]);
+                }
+                inversa[col][fil] = adjunta[fil][col] / determinante;
+              }
+            }
+            printf("La matriz inversa es:\n");
+            for (int fil = 0; fil < tamfil; fil++) {
+              for (int col = 0; col < tamcol; col++) {
+                printf("[%f]", inversa[col][fil]);
+              }
+              printf("\n");
+            }
+          } else if (determinante == 0) {
+            printf("No tiene inversa, su determinante es 0");
+          }
+
+          break;
+        }
+
+        case 5: {
+          //INGRESAMOS EL TAMAÑO DE LA MATRIZ A
+          printf("Ingrese el tamanio de las filas de la matriz A: ");
+          int filasA = 0,
+          coluA = 0,
+          aux = 0;
+          scanf("%d", & filasA);
+          printf("Ingrese el tamanio de las columnas de la matriz A: ");
+          scanf("%d", & coluA);
+          int matrizA[filasA][coluA];
+          //RECIBIMOS DATOS PARA A
+          for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < coluA; j++) {
+              printf("Ingrese A=[%d][%d] \n", i, j);
+              scanf("%i", & matrizA[i][j]);
+
+            }
+          } //IMPRIMIMOS A
+          for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < coluA; j++) {
+              if (j == coluA - 1) {
+                printf("\t%i\n", matrizA[i][j]);
+              } else {
+                printf("\t%i", matrizA[i][j]);
+              }
+            }
+          }
+          //INGRESAMOS EL TAMAÑO DE LA MATRIZ A
+          printf("Para poder hacer las operaciones, las matrices deben ser del mismo tamanio");
+
+          int matrizB[filasA][coluA];
+          //RECIBIMOS DATOS PARA B
+          for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < coluA; j++) {
+              printf("Ingrese [%d][%d]: \n", i, j);
+              scanf("%i", & matrizB[i][j]);
+
+            }
+          } //IMPRIMIMOS B
+          for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < coluA; j++) {
+              if (j == coluA - 1) {
+                printf("\t%i\n", matrizB[i][j]);
+              } else {
+                printf("\t%i", matrizB[i][j]);
+              }
+            }
+          }
+          //DECLARAMOS LA MATRIZ RESULTADO
+          int matsum[filasA][coluA],
+          matres[filasA][coluA],
+          matmult[filasA][coluA],
+          matT[coluA][filasA];
+          for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < coluA; j++) {
+              matsum[i][j] = matrizA[i][j] + matrizB[i][j];
+              matres[i][j] = matrizA[i][j] - matrizB[i][j];
+              matmult[i][j] = matrizA[i][j] * matrizB[i][j];
+            }
+          }
+          int operacion = 0;
+          do {
+            printf("Que quiere saber primero?\n");
+            printf("1.- Suma\n");
+            printf("2.- Resta\n");
+            printf("3.- Multiplicacion\n");
+            printf("4.- Continuar con los ejercicios\n");
+            scanf("%d", & operacion);
+
+            if (operacion == 1) {
+              //SUMAAAAA
+              printf("Para la suma \n");
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  if (j == coluA - 1) {
+                    printf("\t%i + %d\n", matrizA[i][j], matrizB[i][j]);
+                  } else {
+                    printf("\t%i + %d  ", matrizA[i][j], matrizB[i][j]);
+                  }
+                }
+              }
+              printf("La matriz resultado es: \n");
+
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  if (j == coluA - 1) {
+                    printf("\t%i\n", matsum[i][j]);
+                  } else {
+                    printf("\t%i", matsum[i][j]);
+                  }
+                }
+              }
+              //Damos variables a la transpuesta
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  //printf("Ingrese [%d][%d]: \n",i,j);
+                  //scanf("%i",&matrizB[i][j]);
+                  matT[j][i] = matsum[i][j];
+
+                }
+              }
+              //Imprimimos transpuesta
+              printf("\nLa matriz transpuesta es \n");
+              for (int i = 0; i < coluA; i++) {
+                for (int j = 0; j < filasA; j++) {
+                  if (j == filasA - 1) {
+                    printf("\t%i\n", matT[i][j]);
+                  } else {
+                    printf("\t%i", matT[i][j]);
+                  }
+                }
+              }
+            } else if (operacion == 2) {
+              //RESTAAAA
+              printf("\nPara la resta \n");
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  if (j == coluA - 1) {
+                    printf("\t%i - %d\n", matrizA[i][j], matrizB[i][j]);
+                  } else {
+                    printf("\t%i - %d  ", matrizA[i][j], matrizB[i][j]);
+                  }
+                }
+              }
+              //RESTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+              printf("La matriz resultado es: \n");
+
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  if (j == coluA - 1) {
+                    printf("\t%i\n", matres[i][j]);
+                  } else {
+                    printf("\t%i", matres[i][j]);
+                  }
+                }
+              }
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  //printf("Ingrese [%d][%d]: \n",i,j);
+                  //scanf("%i",&matrizB[i][j]);
+                  matT[j][i] = matres[i][j];
+
+                }
+              }
+              //Imprimimos transpuesta
+              printf("\nLa matriz transpuesta es \n");
+              for (int i = 0; i < coluA; i++) {
+                for (int j = 0; j < filasA; j++) {
+                  if (j == filasA - 1) {
+                    printf("\t%i\n", matT[i][j]);
+                  } else {
+                    printf("\t%i", matT[i][j]);
+                  }
+                }
+              }
+            } else if (operacion == 3) {
+              //Multiplic
+              printf("\nPara la multiplicacion\n");
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  if (j == coluA - 1) {
+                    printf("\t%i * %d\n", matrizA[i][j], matrizB[i][j]);
+                  } else {
+                    printf("\t%i * %d  ", matrizA[i][j], matrizB[i][j]);
+                  }
+                }
+              }
+              //MULTIPLICCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+              printf("La matriz resultado es: \n");
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  if (j == coluA - 1) {
+                    printf("\t%i\n", matmult[i][j]);
+                  } else {
+                    printf("\t%i", matmult[i][j]);
+                  }
+                }
+              }
+              for (int i = 0; i < filasA; i++) {
+                for (int j = 0; j < coluA; j++) {
+                  //printf("Ingrese [%d][%d]: \n",i,j);
+                  //scanf("%i",&matrizB[i][j]);
+                  matT[j][i] = matmult[i][j];
+
+                }
+              }
+              //Imprimimos transpuesta
+              printf("\nLa matriz transpuesta es \n");
+              for (int i = 0; i < coluA; i++) {
+                for (int j = 0; j < filasA; j++) {
+                  if (j == filasA - 1) {
+                    printf("\t%i\n", matT[i][j]);
+                  } else {
+                    printf("\t%i", matT[i][j]);
+                  }
+                }
+              }
+
+            }
+          } while (operacion != 4);
+          break;
+        }
+
+        case 6: {
+
+          char texto[300]; //dimensiono tamaño
+          char mayus[300];
+          char minus[300];
+
+          printf("Cambiar un texto de mayusculas a minusculas un texto\n");
+          printf("Escribe un texto:\n");
+          gets(texto); //para leer un texto
+
+          strcpy(mayus, texto); //copia en mayus el texto
+          strcpy(minus, texto); //copia en minus el texto
+
+          strupr(mayus); //funcion para convertir a mayusculas
+          strlwr(minus); //funcion para convertir a minusculas
+
+          printf("\n");
+          printf("Texto original: %s\n", texto);
+          printf("Texto en mayusculas: %s\n", mayus);
+          printf("Texto en minusculas: %s\n", minus);
+          break;
+        }
+
+        case 10:
+          break;
+      }
+      }
+    }
