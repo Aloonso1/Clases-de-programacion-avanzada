@@ -1,0 +1,224 @@
+//
+// Created by alonso on 04/11/20.
+//
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include<string.h>
+
+#define LONGITUD_CADENA 1000
+
+//#include <conio.h>
+char *invertir(char cadena[]) {
+  int longitud = strlen(cadena);
+  char temporal;
+  for (int izquierda = 0, derecha = longitud - 1; izquierda < (longitud / 2);
+       izquierda++, derecha--) {
+    temporal = cadena[izquierda];
+    cadena[izquierda] = cadena[derecha];
+    cadena[derecha] = temporal;
+  }
+  return cadena;
+}
+
+int variable = 0;
+// Declaración de las funciones a utilizar
+unsigned factorial(unsigned);
+
+// Creación de la función factorial que devuelve
+// el resultado del factorial de un numero sin utilizar
+// recursividad
+
+unsigned factorial(unsigned numero) {
+    int resultado = 0;
+    int contador = 0;
+    if (numero == 0) {
+        resultado=1;
+    } else {
+        resultado=1;
+        for(contador=numero; contador>0; contador--) {
+            resultado*=contador;
+        }
+    }
+    return resultado;
+} 
+int main() {
+
+  int op;
+
+  while (op != 10) {
+    printf("\n");
+    printf("1.- Invertir matrices. \n");
+    printf("2.- Invertir arreglos \n");
+    printf("3.- Triangulo de pascal \n");
+
+    printf("10.- Salir\n");
+    printf("Indica la opcion: ");
+    scanf("%d", & op);
+    int n, i, ch;
+
+    while ((ch = getchar()) != '\n' && ch != EOF);
+    switch (op) {
+    case 1: {
+      //INGRESAMOS EL TAMAÑO DE LA MATRIZ A
+      printf("Ingrese el tamanio de las filas de la matriz A: ");
+      int filasA = 0,
+        coluA = 0,
+        aux = 0;
+      scanf("%d", & filasA);
+      printf("Ingrese el tamanio de las columnas de la matriz A: ");
+      scanf("%d", & coluA);
+      int matrizA[filasA][coluA];
+      //RECIBIMOS DATOS PARA A
+      for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < coluA; j++) {
+          printf("Ingrese A=[%d][%d] \n", i, j);
+          scanf("%i", & matrizA[i][j]);
+
+        }
+      } 
+      //INGRESAMOS EL TAMAÑO DE LA MATRIZ A
+      printf("Para poder hacer las operaciones, las matrices deben ser del mismo tamanio\n");
+
+      int matrizB[filasA][coluA];
+      //RECIBIMOS DATOS PARA B
+      for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < coluA; j++) {
+          printf("Ingrese [%d][%d]: \n", i, j);
+          scanf("%i", & matrizB[i][j]);
+
+        }
+      } 
+      //IMPRIMIMOS A
+      printf("Matriz a\n");
+      for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < coluA; j++) {
+          if (j == coluA - 1) {
+            printf("\t%i\n", matrizA[i][j]);
+          } else {
+            printf("\t%i", matrizA[i][j]);
+          }
+        }
+      }
+	  //IMPRIMIMOS B
+      printf("Matriz b\n");
+      for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < coluA; j++) {
+          if (j == coluA - 1) {
+            printf("\t%i\n", matrizB[i][j]);
+          } else {
+            printf("\t%i", matrizB[i][j]);
+          }
+        }
+      }
+      //La magica
+      int matsum[filasA][coluA];
+      for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < coluA; j++) {
+          matsum[i][j] = matrizA[i][j];
+          matrizA[i][j] = matrizB[i][j];
+          matrizB[i][j] = matsum[i][j];
+        }
+      }
+
+      //IMPRIMIMOS A
+      printf("Nueva matriz a\n");
+      for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < coluA; j++) {
+          if (j == coluA - 1) {
+            printf("\t%i\n", matrizA[i][j]);
+          } else {
+            printf("\t%i", matrizA[i][j]);
+          }
+        }
+      }
+      printf("Nueva matriz b\n");
+      //          Imprimimos b
+      for (int i = 0; i < filasA; i++) {
+        for (int j = 0; j < coluA; j++) {
+          if (j == coluA - 1) {
+            printf("\t%i\n", matrizB[i][j]);
+          } else {
+            printf("\t%i", matrizB[i][j]);
+          }
+        }
+      }
+      break;
+    }
+
+    case 2: {
+char cadena[LONGITUD_CADENA];
+  printf("Escribe una cadena (cuya longitud sea menor a %d) y la invertire: ",
+         LONGITUD_CADENA - 1);
+  // Leer cadena
+  fgets(cadena, LONGITUD_CADENA, stdin);
+ 
+  // Nota: esto no tiene que ver con el algoritmo, simplemente remueve el salto
+  // de línea que es escaneada
+  cadena[strcspn(cadena, "\r\n")] = 0;
+ 
+  printf("La cadena invertida es: %s", invertir(cadena));
+      break;
+    }
+    case 3: {
+    // Variables a utilizar
+    int filas = 0;
+    int columnas = 0;
+    int contador = 0;
+    int posicion = 0;
+    int f = 0;
+    int c = 0;
+    int calculo = 0;
+
+    // Solicitar el numero de filas a visualizar
+    printf("No.Filas: ");
+    scanf(" %d",&filas);
+    filas++;
+    // Calculamos el numero de elementos del vector
+    // para ello realizamos el sumatorio del numero
+    // de filas
+    for(contador=filas-1; contador>=0; contador--) {
+        columnas+=contador;
+    }
+    // Creamos el vector donde guardar los valores
+    int triangulo[columnas];
+    // recorremos el vector realizando el calculo del valor
+    // utilizando el numero combinatorio
+    for(f=0; f<filas-1; f++) {
+        for(c=0; c<=f; c++,posicion++) {
+            // se calcula el valor de la posicion del numero en
+            // el vector utilizado el numero combinatorio
+           calculo = factorial(f)/(factorial(c)*factorial(f-c));
+            // se asigna el valor a la posicion del vector que
+            // le corresponde
+           triangulo[posicion]=calculo;
+//           posicion++;
+        }
+    }
+
+    // Visualizar el triangulo de pascal
+    // para que salga correctamente utilizamos
+    // un formato de printf que permite indicar las
+    // longitudes y espacios en blanco a añadir,
+    // utilizando el símbolo asterisco en el patrón de
+    // visualización.
+    posicion=0;
+    for(f=0;f<filas-1;f++) {
+        printf("\n%*c",(int) (columnas/2)-f,' ');
+        for(c=0;c<=f;c++) {
+            printf("%d ",triangulo[posicion]);
+            posicion++;
+        }
+    }
+    
+    
+      break;
+    }
+
+    case 10:
+      break;
+    }
+  }
+}
