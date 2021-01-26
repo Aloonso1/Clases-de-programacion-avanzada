@@ -1,0 +1,3 @@
+/home/alonso/CLionProjects/Practicas/P4/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alonso/CLionProjects/Practicas/P4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/alonso/CLionProjects/Practicas/P4/cmake-build-debug/CMakeFiles/P4.dir
